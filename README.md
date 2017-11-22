@@ -1,22 +1,8 @@
-<!--
-```
-<custom-element-demo>
-  <template>
-    <link rel="import" href="hax-body-behaviors.html">
-    <next-code-block></next-code-block>
-  </template>
-</custom-element-demo>
-```
--->
-```html
-<hax-body-behaviors></hax-body-behaviors>
-```
-
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/LRNWebComponents/hax-body-behaviors)
 
 # \<hax-body-behaviors\>
 
-A LRN element
+A behavior for mixing-in structure for elements to communicate effectively with the hax-body element which manages elements. Dig into the comments of the element to see how it's used in practice. `video-player` implements this, check it out here -- https://www.webcomponents.org/element/LRNWebComponents/video-player
 
 ## Install the Polymer-CLI
 

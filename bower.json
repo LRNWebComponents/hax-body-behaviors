@@ -1,6 +1,6 @@
 {
   "name": "hax-body-behaviors",
-  "description": "A LRN element",
+  "description": "A behavior for mixing-in structure for elements to communicate effectively with the hax-body element which manages elements.",
   "main": "hax-body-behaviors.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.10.1"
