@@ -80,51 +80,79 @@ with the hax-body element which manages elements.
      * properties in order to be able to bubble up the properties for a tag.
      */
     setHaxProperties: function (props) {
-      // validate properties to ensure each has defaults in place to match the model
-      for (i = 0; i < props.length; i++) {
-        // we don't have a property or slot so it's not valid.
-        if (typeof props[i].property === typeof undefined && typeof props[i].slot === typeof undefined) {
-          props.splice(i, 1);
-          continue;
-        }
-        // ensure there's a title
-        if (typeof props[i].title === typeof undefined) {
-          props[i].title = props[i].property;
-        }
-        // ensure there's at least an empty description
-        if (typeof props[i].description === typeof undefined) {
-          props[i].description = '';
-        }
-        // ensure there's at least an input method
-        if (typeof props[i].inputMethod === typeof undefined) {
-          props[i].inputMethod = 'textfield';
-        }
-        // ensure there's at least a type
-        if (typeof props[i].type === typeof undefined) {
-          props[i].type = 'settings';
-        }
-        // ensure there's at least an icon
-        if (typeof props[i].icon === typeof undefined) {
-          props[i].icon = 'android';
-        }
-        // ensure there's at least an empty options area
-        if (typeof props[i].options === typeof undefined) {
-          props[i].options = {};
-        }
-        // ensure there's required set
-        if (typeof props[i].required === typeof undefined) {
-          props[i].required = false;
-        }
-        // ensure there's validation or make it anything if none set
-        if (typeof props[i].validation === typeof undefined) {
-          props[i].validation = '*';
-        }
-        // ensure there's validation or make it anything if none set
-        if (typeof props[i].validationType === typeof undefined) {
-          props[i].validationType = '';
-        }
+      // these are a core piece of hax capabilities
+      // set them in the event this got called without anything
+      // so we at least won't bomb
+      if (typeof props.api === typeof undefined) {
+        props.api = '1';
       }
-      this._setHaxProperties(props);
+      // sets us up for future API versioning of property validation
+      // and clean up.
+      if (props.api == '1') {
+        if (typeof props.canPosition === typeof undefined) {
+          props.canPosition = true;
+        }
+        if (typeof props.canScale === typeof undefined) {
+          props.canScale = true;
+        }
+        // while not required, this is where all the raw power of this
+        // approach really lies since this wires properties/slots to HAX's
+        // ability to manipulate things via contextual menus
+        if (typeof props.settings !== typeof undefined) {
+          // validate properties to ensure each has defaults in place to match the model
+          for (i = 0; i < props.settings.length; i++) {
+            // we don't have a property or slot so it's not valid.
+            if (typeof props.settings[i].property === typeof undefined && typeof props.settings[i].slot === typeof undefined) {
+              props.splice(i, 1);
+              continue;
+            }
+            // ensure there's a title
+            if (typeof props.settings[i].title === typeof undefined) {
+              props.settings[i].title = props.settings[i].property;
+            }
+            // ensure there's at least an empty description
+            if (typeof props.settings[i].description === typeof undefined) {
+              props.settings[i].description = '';
+            }
+            // ensure there's at least an input method
+            if (typeof props.settings[i].inputMethod === typeof undefined) {
+              props.settings[i].inputMethod = 'textfield';
+            }
+            // ensure there's at least a type
+            if (typeof props.settings[i].type === typeof undefined) {
+              props.settings[i].type = 'settings';
+            }
+            // ensure there's at least an icon
+            if (typeof props.settings[i].icon === typeof undefined) {
+              props.settings[i].icon = 'android';
+            }
+            // ensure there's at least an empty options area
+            if (typeof props.settings[i].options === typeof undefined) {
+              props.settings[i].options = {};
+            }
+            // ensure there's required set
+            if (typeof props.settings[i].required === typeof undefined) {
+              props.settings[i].required = false;
+            }
+            // ensure there's validation or make it anything if none set
+            if (typeof props.settings[i].validation === typeof undefined) {
+              props.settings[i].validation = '.*';
+            }
+            // ensure there's validation or make it anything if none set
+            if (typeof props.settings[i].validationType === typeof undefined) {
+              props.settings[i].validationType = '';
+            }
+          }
+        }
+        this._setHaxProperties(props);
+      }
+      else {
+        // especially useful during development if we implement our own API
+        // incorrectly. Don't hard brick cause it'll still more or less work
+        // but would probably default to an iframe which is less then ideal
+        // but at least wouldn't brick the AX.
+        console.log('This is\'t a valid usage of hax-body-behaviors API. See hax-body-behaviors for more details on how to implement the API. Most likely your hax item just was placed in an iframe as a fallback as opposed to a custom element.');
+      }
     },
     /**
      * Match convention for set.
@@ -138,6 +166,7 @@ with the hax-body element which manages elements.
     prototypeHaxProperties: function() {
       // example properties valid for HAX context menu.
       let props = {
+        'api': '1',
         'canScale': true,
         'canPosition': true,
         'settings': [
@@ -150,7 +179,8 @@ with the hax-body element which manages elements.
             'options': {},
             'icon': 'android',
             'required': false,
-            'validation': '[a-zA-Z]'
+            'validation': '.*',
+            'validationType': 'text',
           }
         ]
       };
