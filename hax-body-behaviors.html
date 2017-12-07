@@ -124,6 +124,9 @@ with the hax-body element which manages elements.
         if (typeof props.settings !== typeof undefined) {
           // loop through any potential settings in each of the three
           // groupings of possible settings and validate that each setting is accurate
+          if (typeof props.settings.quick === typeof undefined) {
+            props.settings.quick = [];
+          }
           for (i = 0; i < props.settings.quick.length; i++) {
             props.settings.quick[i] = this.validateSetting(props.settings.quick[i]);
             // account for a bad property and remove it
@@ -131,11 +134,17 @@ with the hax-body element which manages elements.
               props.settings.quick.splice(i, 1);
             }
           }
+          if (typeof props.settings.configure === typeof undefined) {
+            props.settings.configure = [];
+          }
           for (i = 0; i < props.settings.configure.length; i++) {
             props.settings.configure[i] = this.validateSetting(props.settings.configure[i]);
             if (!props.settings.configure[i]) {
               props.settings.configure.splice(i, 1);
             }
+          }
+          if (typeof props.settings.advanced === typeof undefined) {
+            props.settings.advanced = [];
           }
           for (i = 0; i < props.settings.advanced.length; i++) {
             props.settings.advanced[i] = this.validateSetting(props.settings.advanced[i]);
