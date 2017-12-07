@@ -184,6 +184,8 @@ with the hax-body element which manages elements.
             }
           }
         }
+        // fire event so we know there are settings
+        this.fire('hax-properties-set', {'tag': this.tagName, 'properties': props});
         this._setHaxProperties(props);
       }
       else {
