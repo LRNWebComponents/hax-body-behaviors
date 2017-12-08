@@ -184,8 +184,8 @@ with the hax-body element which manages elements.
             }
           }
         }
-        // fire event so we know there are settings
-        this.fire('hax-properties-set', {'tag': this.tagName, 'properties': props});
+        // fire event so we know they have been set for the store to collect
+        this.fire('hax-register-properties', {'tag': this.tagName.toLowerCase(), 'properties': props});
         this._setHaxProperties(props);
       }
       else {
@@ -378,7 +378,23 @@ with the hax-body element which manages elements.
         'api': '1',
         'canScale': true,
         'canPosition': true,
-        "canEditSource": true,
+        "canEditSource": false,
+        'gizmo': {
+          'title': 'Tag name',
+          'description': 'A description',
+          'icon': 'av:play-circle-filled',
+          'color': 'blue',
+          'groups': ['Content'],
+          'handles': [
+            {
+              'type': 'data',
+              'url': 'src'
+            }
+          ],
+          'meta': {
+            'author': ''
+          }
+        },
         "settings": {
           "quick": [
             {
