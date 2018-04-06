@@ -388,6 +388,22 @@ with the hax-body element which manages elements.
                   }
                 };
               break;
+              case 'code-editor':
+                schema.properties[settings[value].property].component = {
+                  'name': 'code-editor',
+                  'valueProperty': 'editorValue',
+                  'attributes': {
+                    'id': 'haxcodeeditor'
+                  },
+                  'properties': {
+                    'readOnly': false,
+                    'theme': 'ace/theme/monokai',
+                    'mode': 'ace/mode/html',
+                    'fontsize': '16px',
+                    'className': 'hax-code-editor'
+                  }
+                };
+              break;
               case 'textfield':
                 schema.properties[settings[value].property].component = {
                   'name': 'paper-input',
@@ -471,6 +487,22 @@ with the hax-body element which manages elements.
                   }
                 };
               break;
+              case 'code-editor':
+                schema.properties[settings[value].attribute].component = {
+                  'name': 'code-editor',
+                  'valueProperty': 'editorValue',
+                  'attributes': {
+                    'id': 'haxcodeeditor'
+                  },
+                  'properties': {
+                    'readOnly': false,
+                    'theme': 'ace/theme/monokai',
+                    'mode': 'ace/mode/html',
+                    'fontsize': '16px',
+                    'className': 'hax-code-editor'
+                  }
+                };
+              break;
               case 'textfield':
                 schema.properties[settings[value].attribute].component = {
                   'name': 'paper-input',
@@ -492,18 +524,35 @@ with the hax-body element which manages elements.
             }
           }
           else {
+            // @todo slot should support other editor types... maybe
             schema.properties[settings[value].slot] = {
               'title': settings[value].title,
               'type': this.getHaxJSONSchemaType(settings[value].inputMethod),
               'value': '',
+              'component': {
+                'name': 'code-editor',
+                'valueProperty': 'editorValue',
+                'attributes': {
+                  'id': 'haxcodeeditor'
+                },
+                'properties': {
+                  'readOnly': false,
+                  'theme': 'ace/theme/monokai',
+                  'mode': 'ace/mode/html',
+                  'fontsize': '16px',
+                  'className': 'hax-code-editor'
+                }
+              }
             };
+            let slot = '';
             // test for slotted content values names is tricky
             for (var i in Polymer.dom(this).childNodes) {
               // this is crazy... you know that right
               if (typeof Polymer.dom(this).childNodes[i] !== typeof undefined && Polymer.dom(this).childNodes[i].nodeType === 1 && Polymer.dom(this).childNodes[i].slot === settings[value].slot) {
-                  schema.properties[settings[value].slot].value = Polymer.dom(this).childNodes[i].innerHTML;
+                  slot += Polymer.dom(this).childNodes[i].innerHTML;
               }
             }
+            schema.properties[settings[value].slot].slot = slot;
           }
         }
       }
@@ -540,7 +589,7 @@ with the hax-body element which manages elements.
      * List valid input methods.
      */
     validHAXPropertyInputMethod: function() {
-      var methods = ['flipboolean', 'boolean', 'select', 'textfield', 'textarea', 'datepicker', 'colorpicker', 'number'];
+      var methods = ['flipboolean', 'boolean', 'select', 'textfield', 'textarea', 'datepicker', 'colorpicker', 'number', 'code-editor'];
       return methods;
     },
     /**
