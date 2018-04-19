@@ -455,6 +455,16 @@ with the hax-body element which manages elements.
                   }
                 };
               break;
+              case 'datepicker':
+                schema.properties[settings[value].property].component = {
+                  'name': 'app-datepicker',
+                  'valueProperty': 'date',
+                  'properties': {
+                    'required': settings[value].required,
+                    'autoUpdateDate': true,
+                  }
+                };
+              break;
             }
           }
           else if (target.hasAttribute(settings[value].attribute) || ['id', 'class', 'style', 'property', 'prefix', 'typeof', 'resource'].includes(settings[value].attribute)) {
