@@ -437,6 +437,12 @@ with the hax-body element which manages elements.
                   }
                 };
               break;
+              case 'array':
+                schema.properties[settings[value].property].items = {
+                  "type": "object",
+                  "properties": settings[value].items
+                }
+              break;
               case 'textfield':
                 schema.properties[settings[value].property].component = {
                   'name': 'paper-input',
@@ -629,6 +635,9 @@ with the hax-body element which manages elements.
           case 'textfield':
             return 'string';
           break;
+          case 'array':
+            return 'array';
+          break;
           default:
             return 'string';
           break;
@@ -639,7 +648,7 @@ with the hax-body element which manages elements.
      * List valid input methods.
      */
     validHAXPropertyInputMethod: function() {
-      var methods = ['flipboolean', 'boolean', 'select', 'textfield', 'textarea', 'datepicker', 'colorpicker', 'number', 'code-editor'];
+      var methods = ['flipboolean', 'boolean', 'select', 'textfield', 'textarea', 'datepicker', 'colorpicker', 'number', 'code-editor', 'array'];
       return methods;
     },
     /**
