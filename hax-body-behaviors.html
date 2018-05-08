@@ -229,13 +229,6 @@ with the hax-body element which manages elements.
             'description': 'Custom CSS styles as applied to the element',
             'inputMethod': 'textfield',
           });
-          // allow the id to be modified
-          props.settings.advanced.push({
-            'attribute': 'id',
-            'title': 'ID',
-            'description': 'element ID, only set this if you know why',
-            'inputMethod': 'textfield',
-          });
           // allow schema definitions
           props.settings.advanced.push({
             'attribute': 'prefix',
@@ -259,6 +252,13 @@ with the hax-body element which manages elements.
             'attribute': 'resource',
             'title': 'Schema: Resource ID',
             'description': 'Schema resource identifier',
+            'inputMethod': 'textfield',
+          });
+          // allow the id to be modified
+          props.settings.advanced.push({
+            'attribute': 'id',
+            'title': 'ID',
+            'description': 'element ID, only set this if you know why',
             'inputMethod': 'textfield',
           });
         }
