@@ -471,6 +471,18 @@ with the hax-body element which manages elements.
                   }
                 };
               break;
+              case 'alt':
+                props[settings[value].property].component = {
+                  'name': 'paper-input-flagged',
+                  'valueProperty': 'value',
+                  'properties': {
+                    'required': settings[value].required
+                  },
+                  'attributes': {
+                    'auto-validate': 'auto-validate'
+                  }
+                };
+              break;
               case 'colorpicker':
                 props[settings[value].property].component = {
                   'name': 'paper-swatch-picker',
@@ -537,9 +549,12 @@ with the hax-body element which manages elements.
               case 'number':
                 props[settings[value].attribute].component = {
                   'name': 'paper-input',
-                  'valueProperty': 'selected',
+                  'valueProperty': 'value',
                   'properties': {
                     'required': settings[value].required
+                  },
+                  'attributes': {
+                    'type': 'number'
                   }
                 };
               break;
@@ -565,6 +580,10 @@ with the hax-body element which manages elements.
                   'valueProperty': 'value',
                   'properties': {
                     'required': settings[value].required
+                  },
+                  'attributes': {
+                    'auto-validate': 'auto-validate',
+                    'char-counter': 'char-counter'
                   }
                 };
               break;
@@ -591,6 +610,21 @@ with the hax-body element which manages elements.
                   'valueProperty': 'value',
                   'properties': {
                     'required': settings[value].required
+                  },
+                  'attributes': {
+                    'auto-validate': 'auto-validate'
+                  }
+                };
+              break;
+              case 'alt':
+                props[settings[value].attribute].component = {
+                  'name': 'paper-input-flagged',
+                  'valueProperty': 'value',
+                  'properties': {
+                    'required': settings[value].required
+                  },
+                  'attributes': {
+                    'auto-validate': 'auto-validate'
                   }
                 };
               break;
@@ -666,6 +700,7 @@ with the hax-body element which manages elements.
           case 'iconpicker':
           case 'datepicker':
           case 'textfield':
+          case 'alt':
             return 'string';
           break;
           case 'array':
@@ -681,7 +716,7 @@ with the hax-body element which manages elements.
      * List valid input methods.
      */
     validHAXPropertyInputMethod: function() {
-      var methods = ['flipboolean', 'boolean', 'select', 'textfield', 'textarea', 'datepicker', 'colorpicker', 'iconpicker', 'number', 'code-editor', 'array'];
+      var methods = ['flipboolean', 'boolean', 'select', 'textfield', 'textarea', 'datepicker', 'colorpicker', 'iconpicker', 'alt', 'number', 'code-editor', 'array'];
       return methods;
     },
     /**
